@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Travel Bingo</title>
+<style type="text/css">
+body {
+	background-color: #ccc;
+}
+td {
+	
+	border: 1px double #000;
+	height: 85px;
+	width: 85px;
+	font-size: 72px;
+	text-align: center;
+}
+#gameBoard {
+	height: 510px;
+	width: 510px;
+	border: 4px outset #666;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url("Bingo Board1.jpg");
+	background-repeat:no-repeat;
+}
+#displayMessage {
+	height:auto;
+	width: auto;
+	display:block;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #999;
+	clear: both;
+	margin-top: 25px;
+	text-align: center;
+	margin-bottom: 25px;
+}
+h1 {
+	text-align: center;
+	color: #060;
+}
+
+#displayMessage p {
+	font-family: "Arial";
+	font-size: 18px;
+	font-style: italic;
+	font-weight: bold;
+	color: #005900;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+#reset {
+	margin-left: 280px;
+}
+#container {
+	height: auto;
+	width: 620px;
+	margin-top: 40px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#radioButtons {
+	float: left;
+	height: 100px;
+	width: 250px;
+	margin-left: 120px;
+}
+</style>
+</head>
+
+<body>
+<div id = "displayMessage">
+
+<p>Click on the box when you find the object.<br />The first to complete a row vertically, horizontally, or diagonally wins!</p>
+</div>
+<div id="radioButtons">
+
+  <form name="form1" method="post" action="">
+    <p>
+    <input name="select_board" type="button" value="Select Board"
+      onClick="select_board()">
+    
+      <input name="start" type="button" value="Start"
+      onClick="playGame()">
+      <input name="reset" type="button" value="Reset" onClick="clearboard()">
+    </p>
+  </form>
+</div>
+
+<script type="text/javascript">
+function TicTacToe()
+{
+	this.board = new Array(5);
+
+    // row 1
+    this.board[0]=new Array(5);
+    this.board[0][1] = "";
+    this.board[0][2] = "";
+    this.board[0][3] = "";
+	this.board[0][4] = "";
+	this.board[0][5] = "";
+
+
+   // row 2
+   this.board[1]=new Array(5);
+   this.board[1][1] = "";
+   this.board[1][2] = "";
+   this.board[1][3] = "";
+   this.board[1][4] = "";
+   this.board[1][5] = "";
+
+   // row 3
+   this.board[2]=new Array(5);
+   this.board[2][1] = "";
+   this.board[2][2] = "";
+   this.board[2][3] = "";
+   this.board[2][4] = "";
+   this.board[2][5] = "";
+    // row 4
+   this.board[3]=new Array(5);
+   this.board[3][1] = "";
+   this.board[3][2] = "";
+   this.board[3][3] = "";
+   this.board[3][4] = "";
+   this.board[3][5] = "";
+    // row 5
+   this.board[4]=new Array(5);
+   this.board[4][1] = "";
+   this.board[4][2] = "";
+   this.board[4][3] = "";
+   this.board[4][4] = "";
+   this.board[4][5] = "";
+   
+   
+	var s1 = this.board[0][1];
+    var s2 = this.board[0][2]; 
+    var s3 = this.board[0][3];
+	var s4 = this.board[0][4];
+    var s5 = this.board[0][5];
+    var s6 = this.board[1][1]; 
+    var s7 = this.board[1][2]; 
+    var s8 = this.board[1][3];
+	var s9 = this.board[1][4];
+	var s10 = this.board[1][5];
+    var s11 = this.board[2][1];
+    var s12 = this.board[2][2];
+    var s13 = this.board[2][3];
+	var s14 = this.board[2][4];
+    var s15 = this.board[2][5];
+	var s16 = this.board[3][1];
+	 var s17 = this.board[3][2];
+	 var s18 = this.board[3][3];
+	 var s19 = this.board[3][4];
+	var s20 = this.board[3][5];
+	var s21 = this.board[4][1];
+	var s22 = this.board[4][2];
+	var s23 = this.board[4][3];
+	var s24 = this.board[4][4];
+	var s25 = this.board[4][5];			   
+	
+	this.toHTML= function()
+	
+	{
+		var myHTML = "";
+		myHTML += '<table id="gameBoard" >';
+		myHTML += '<tr><td id="s1">' + s1 + '</td>';
+		myHTML += '<td id="s2">' + s2 + '</td>';
+		myHTML += '<td id="s3">' + s3 + '</td>';
+		myHTML += '<td id="s4">' + s4 + '</td>';
+		myHTML += '<td id="s5">' + s5 + '</td></tr>';
+		
+		myHTML += '<tr><td id="s6">' + s6 + '</td>';
+		myHTML += '<td id="s7">' + s7 + '</td>';
+		myHTML += '<td id="s8">' + s8 + '</td>';
+		myHTML += '<td id="s9">' + s9 + '</td>';
+		myHTML += '<td id="s10">' + s10 + '</td></tr>';
+		
+		myHTML += '<tr><td id="s11">' + s11 + '</td>';
+		myHTML += '<td id="s12">' + s12 + '</td>';
+		myHTML += '<td id="s13">' + s13 + '</td>';
+		myHTML += '<td id="s14">' + s14 + '</td>';
+		myHTML += '<td id="s15">' + s15 + '</td></tr>';
+		
+		myHTML += '<tr><td id="s16">' + s16 + '</td>';
+		myHTML += '<td id="s17">' + s17 + '</td>';
+		myHTML += '<td id="s18">' + s18 + '</td>';
+		myHTML += '<td id="s19">' + s19 + '</td>';
+		myHTML += '<td id="s20">' + s20 + '</td></tr>';
+		
+		myHTML += '<tr><td id="s21">' + s21 + '</td>';
+		myHTML += '<td id="s22">' + s22 + '</td>';
+		myHTML += '<td id="s23">' + s23 + '</td>';
+		myHTML += '<td id="s24">' + s24 + '</td>';
+		myHTML += '<td id="s25">' + s25 + '</td></tr>';
+		
+		myHTML += '</table>';
+		return myHTML;
+		 
+	}
+}
+
+
+function playGame()
+{
+
+//var div = document.getElementById("displayMessage");
+
+
+var square1 = document.getElementById("s1");
+var square2 = document.getElementById("s2");
+var square3 = document.getElementById("s3");
+var square4 = document.getElementById("s4");
+var square5 = document.getElementById("s5");
+var square6 = document.getElementById("s6");
+var square7 = document.getElementById("s7");
+var square8 = document.getElementById("s8");
+var square9 = document.getElementById("s9");
+var square10 = document.getElementById("s10");
+var square11 = document.getElementById("s11");
+var square12 = document.getElementById("s12");
+var square13 = document.getElementById("s13");
+var square14 = document.getElementById("s14");
+var square15 = document.getElementById("s15");
+var square16 = document.getElementById("s16");
+var square17 = document.getElementById("s17");
+var square18 = document.getElementById("s18");
+var square19 = document.getElementById("s19");
+var square20 = document.getElementById("s20");
+var square21 = document.getElementById("s21");
+var square22 = document.getElementById("s22");
+var square23 = document.getElementById("s23");
+var square24 = document.getElementById("s24");
+var square25 = document.getElementById("s25");
+var current = "X";
+
+
+ square1.onclick = function() 
+ {
+	 square1.innerHTML = current;
+ }
+	  square2.onclick = function() 
+ {
+	 square2.innerHTML = current;
+ }
+	  square3.onclick = function() 
+ {
+	 square3.innerHTML = current;
+ }
+	  square4.onclick = function() 
+ {
+	 square4.innerHTML = current;
+ }
+	  square5.onclick = function() 
+ {
+	 square5.innerHTML = current;
+ }
+	  square6.onclick = function() 
+ {
+	 square6.innerHTML = current;
+ }
+	  square7.onclick = function() 
+ {
+	square7.innerHTML = current;
+ }
+	  square8.onclick = function() 
+ {
+	square8.innerHTML = current;
+ }
+	  square9.onclick = function() 
+ {
+	 square9.innerHTML = current;
+ }
+	  square10.onclick = function() 
+ {
+	 square10.innerHTML = current;
+ }
+	  square11.onclick = function() 
+ {
+	square11.innerHTML = current;
+ }
+	  square12.onclick = function() 
+ {
+	square12.innerHTML = current;
+ }
+	  square13.onclick = function() 
+ {
+	 square13.innerHTML = current;
+ }
+	  square14.onclick = function() 
+ {
+	 square14.innerHTML = current;
+ }
+	  square15.onclick = function() 
+ {
+	 square15.innerHTML = current;
+ }
+	  square16.onclick = function() 
+ {
+	 
+		  square16.innerHTML = current;
+	  
+ }
+	  square17.onclick = function() 
+ {
+	square17.innerHTML = current;
+ }
+	  square18.onclick = function() 
+ {
+	 square18.innerHTML = current;
+ }
+	  square19.onclick = function() 
+ {
+	square19.innerHTML = current;
+ }
+	  square20.onclick = function() 
+ {
+	square20.innerHTML = current;
+ }
+	  square21.onclick = function() 
+ {
+	square21.innerHTML = current;
+ }
+	  square22.onclick = function() 
+ {
+	 square22.innerHTML = current;
+ }
+	  square23.onclick = function() 
+ {
+	square23.innerHTML = current;
+ }
+	  square24.onclick = function() 
+ {
+	 square24.innerHTML = current;
+ }
+	  square25.onclick = function() 
+ {
+	 square25.innerHTML = current;
+	 
+ }
+function clearboard()
+{
+	button.addEventListener("click", function () {
+    var tds = document.getElementsByTagName('td');
+    for(var i = 0; i < tds.length; i++) {
+        tds[i].innerHTML = ''
+    }
+});
+	square1.innerHTML="";
+		square2.innerHTML="";	
+		square3.innerHTML="";	
+		square4.innerHTML="";	
+		square5.innerHTML="";	
+		square6.innerHTML="";	
+		square7.innerHTML="";	
+		square8.innerHTML="";
+		square9.innerHTML="";	
+		square10.innerHTML="";
+		square11.innerHTML="";
+		square12.innerHTML="";
+		square13.innerHTML="";
+		square14.innerHTML="";
+		square15.innerHTML="";
+		square16.innerHTML="";
+		square17.innerHTML="";
+		square18.innerHTML="";
+		square19.innerHTML="";
+		square20.innerHTML="";
+		square21.innerHTML="";
+		square22.innerHTML="";
+		square23.innerHTML="";
+		square24.innerHTML="";
+		square25.innerHTML="";	
+		
+	}//end clearboard()
+function select_board()
+{
+}//end select_board
+	
+} 
+var game = new TicTacToe();
+document.write(game.toHTML(game));
+//document.write(playGame());
+
+
+</script>
+</body>
+</html>
